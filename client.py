@@ -4,6 +4,7 @@ import paho.mqtt.client as mqtt
 import json
 
 
+
 def on_connect(client, userdata, flags, rc):
     print(("connected with result code "+str(rc)))
     client.subscribe("/hopp/ned/2")
