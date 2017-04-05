@@ -12,7 +12,7 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     data=json.loads(str(msg.payload)[2:-1])
     for i in data:
-        #print(i['Name'], i['Id'])
+        #print(i['Name'])
         print(i)
 
 
@@ -29,12 +29,15 @@ while True:
     inn=input()
     if inn=='list':
         #data={'command': 'list'}
-        #verdi1=int(datetime.datetime(2017, 3, 31, 17, 00).timestamp())#debug
-        #verdi2=int(datetime.datetime(2017, 3, 31, 18, 00).timestamp())#debug
-        verdi1=1000#debug
-        verdi2=1300#debug
+        verdi1=int(datetime.datetime(2017, 3, 31, 17, 00).timestamp())#debug
+        verdi2=int(datetime.datetime(2017, 3, 31, 18, 00).timestamp())#debug
         data={'command': 'list', 'building': 'Realfagsbygget', 'from' : verdi1 , 'to' : verdi2}#debug
         #data={'command': 'list', 'building': 'Realfagsbygget'}#debug
-        print(data)
+        #print(data)#debug
+        client.publish('/hopp/ned', json.dumps(data))
+        print("sendt")
+    if inn=='bookings':
+
+        data={'command': 'bookings', 'user': '1'}#debug
         client.publish('/hopp/ned', json.dumps(data))
         print("sendt")
