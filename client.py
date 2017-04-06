@@ -3,7 +3,7 @@ import datetime
 import time
 import paho.mqtt.client as mqtt
 import json
-
+import clientfields
 
 
 def on_connect(client, userdata, flags, rc):
@@ -40,14 +40,14 @@ while True:
         #data={'command': 'list'}
         verdi1=int(datetime.datetime(2017, 3, 31, 17, 00).timestamp())#debug
         verdi2=int(datetime.datetime(2017, 3, 31, 18, 00).timestamp())#debug
-        data={'command': 'liste', 'building': 'Realfagsbygget', 'from' : verdi1 , 'to' : verdi2}#debug
+        data={'command': 'liste', 'building': 'Realfagsbygget', 'from' : verdi1 , 'to' : verdi2, 'clientname' : clientfields.name}#debug
         #data={'command': 'list', 'building': 'Realfagsbygget'}#debug
         print(data)#debug
         client.publish('/fk/rr', json.dumps(data))
         print("sendt")
 
     if inn=='bookings':
-        data={'command': 'bookings', 'user': '1'}#debug
+        data={'command': 'bookings', 'user': '1', 'clientname' : clientfields.name}#debug
         print(data)
         client.publish('/fk/rr', json.dumps(data))
         print("sendt")
