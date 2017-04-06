@@ -8,12 +8,21 @@ import json
 
 def on_connect(client, userdata, flags, rc):
     print(("connected with result code "+str(rc)))
-    client.subscribe("/hopp/ned/2")
+    client.subscribe("/fk/rr/2")
 def on_message(client, userdata, msg):
     data=json.loads(str(msg.payload)[2:-1])
     for i in data:
-        #print(i['Name'])
-        print(i)
+            print(i)
+    """if data[-1]['type']=='bookinglist':
+        data.pop()
+        for i in data:
+            #print(i['Name'])
+            print(i)
+    if data[-1]['type']=='list':
+        data.pop()
+        for i in data:
+            #print(i['Name'])
+            print(i)"""
 
 
 client=mqtt.Client()
@@ -27,17 +36,18 @@ while True:
     time.sleep(1)
     print("Skriv inn commando")
     inn=input()
-    if inn=='list':
+    if inn=='liste':
         #data={'command': 'list'}
         verdi1=int(datetime.datetime(2017, 3, 31, 17, 00).timestamp())#debug
         verdi2=int(datetime.datetime(2017, 3, 31, 18, 00).timestamp())#debug
-        data={'command': 'list', 'building': 'Realfagsbygget', 'from' : verdi1 , 'to' : verdi2}#debug
+        data={'command': 'liste', 'building': 'Realfagsbygget', 'from' : verdi1 , 'to' : verdi2}#debug
         #data={'command': 'list', 'building': 'Realfagsbygget'}#debug
-        #print(data)#debug
-        client.publish('/hopp/ned', json.dumps(data))
+        print(data)#debug
+        client.publish('/fk/rr', json.dumps(data))
         print("sendt")
-    if inn=='bookings':
 
+    if inn=='bookings':
         data={'command': 'bookings', 'user': '1'}#debug
-        client.publish('/hopp/ned', json.dumps(data))
+        print(data)
+        client.publish('/fk/rr', json.dumps(data))
         print("sendt")
